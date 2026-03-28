@@ -1,0 +1,16 @@
+{
+  "name": "studyslots",
+  "version": "1.0.0",
+  "description": "Cronometra tus estudios con recompensas de slot machine",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "keywords": ["study", "pomodoro", "timer", "electron"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}

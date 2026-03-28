@@ -1,0 +1,182 @@
+:root {
+  --neon: #39FF14;
+  --neon-glow: rgba(57, 255, 20, 0.5);
+  --circumference: 553;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: transparent;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  overflow: visible;
+  -webkit-app-region: drag;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 6px;
+  height: 100vh;
+}
+
+.timer-wrapper {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 8px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 160px;
+  transition: border-color 0.3s;
+}
+
+.timer-wrapper:hover {
+  border-color: rgba(57, 255, 20, 0.15);
+}
+
+.timer-wrapper.dragging {
+  border-color: rgba(57, 255, 20, 0.25);
+  border-style: dashed;
+}
+
+.timer-container {
+  position: relative;
+  width: 220px; height: 220px;
+}
+
+.progress-ring {
+  width: 100%; height: 100%;
+  filter: drop-shadow(0 0 14px var(--neon-glow)) drop-shadow(0 0 4px var(--neon));
+  transition: filter 0.5s;
+}
+
+.ring-progress {
+  transition: stroke-dashoffset 0.8s ease;
+  stroke-width: 5;
+}
+
+.ring-glow {
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.ring-bg {
+  stroke-width: 5;
+}
+
+.timer-center {
+  position: absolute;
+  inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+
+.time-display {
+  font-size: 44px; font-weight: 800;
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px var(--neon-glow), 0 0 50px rgba(57, 255, 20, 0.15);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  transition: all 0.5s;
+}
+
+.time-display.final-text {
+  font-size: 38px;
+  background: linear-gradient(135deg, #39FF14, #00ff88, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  animation: finalPulse 2s ease infinite;
+}
+
+@keyframes finalPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.85; }
+}
+
+.time-label {
+  font-size: 10px; color: rgba(255,255,255,0.35);
+  text-transform: uppercase; letter-spacing: 3px;
+  margin-top: 4px;
+  transition: all 0.5s;
+}
+
+.timer-wrapper.finalized .time-label {
+  color: rgba(57, 255, 20, 0.6);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+/* Controls */
+.controls {
+  display: flex; gap: 10px;
+  -webkit-app-region: no-drag;
+}
+
+.ctrl-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(57, 255, 20, 0.2);
+  background: rgba(10, 10, 15, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--neon);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+
+.ctrl-btn:hover {
+  background: rgba(57, 255, 20, 0.1);
+  border-color: var(--neon);
+  box-shadow: 0 0 16px var(--neon-glow);
+}
+
+.ctrl-cancel { color: #ff5555; border-color: rgba(255, 85, 85, 0.2); }
+.ctrl-cancel:hover {
+  background: rgba(255, 85, 85, 0.1);
+  border-color: #ff5555;
+  box-shadow: 0 0 16px rgba(255, 85, 85, 0.3);
+}
+
+.ctrl-done {
+  color: var(--neon);
+  border-color: var(--neon);
+  background: rgba(57, 255, 20, 0.08);
+}
+.ctrl-done:hover {
+  background: rgba(57, 255, 20, 0.2);
+  box-shadow: 0 0 20px var(--neon-glow);
+}
+
+.status-msg {
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  height: 14px;
+  transition: color 0.5s;
+}
+
+.timer-wrapper.finalized .status-msg {
+  color: rgba(255,255,255,0.2);
+}
+
+/* Completion pulse */
+@keyframes completePulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.timer-container.complete {
+  animation: completePulse 0.6s ease 3;
+}
+
+@keyframes fadeGlow {
+  0% { filter: drop-shadow(0 0 14px var(--neon-glow)); }
+  50% { filter: drop-shadow(0 0 35px var(--neon-glow)) drop-shadow(0 0 60px var(--neon-glow)); }
+  100% { filter: drop-shadow(0 0 14px var(--neon-glow)); }
+}
+.timer-container.complete .progress-ring {
+  animation: fadeGlow 0.5s ease 4;
+}
+
+/* Finalized state */
+.finalized-ring {
+  filter: drop-shadow(0 0 18px var(--neon-glow)) drop-shadow(0 0 35px rgba(57, 255, 20, 0.3));
+}

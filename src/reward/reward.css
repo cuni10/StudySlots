@@ -1,0 +1,261 @@
+:root {
+  --neon: #39FF14;
+  --neon-glow: rgba(57, 255, 20, 0.5);
+  --gold: #FFD700;
+  --gold-glow: rgba(255, 215, 0, 0.5);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: transparent;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+  height: 100vh; width: 100vw;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.reward-wrapper {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 16px;
+  animation: fadeIn 0.5s ease;
+  padding: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.celebration-text {
+  font-size: 22px; font-weight: 800;
+  color: var(--gold);
+  text-shadow:
+    0 0 10px var(--gold-glow),
+    0 0 30px var(--gold-glow),
+    0 0 60px rgba(255, 215, 0, 0.2);
+  letter-spacing: 3px;
+  animation: celebratePulse 1s ease infinite;
+  z-index: 5;
+}
+
+@keyframes celebratePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Slot Machine */
+.slot-machine {
+  position: relative;
+  width: 440px;
+  height: 400px;
+  filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.25));
+}
+
+.machine-body {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Machine lights animation */
+@keyframes blink1 { 0%, 100% { opacity: 1; } 50% { opacity: 0.15; } }
+@keyframes blink2 { 0%, 100% { opacity: 0.15; } 50% { opacity: 1; } }
+.light-1, .light-3, .light-5, .light-7 { animation: blink1 0.8s ease infinite; }
+.light-2, .light-4, .light-6, .light-8 { animation: blink2 0.8s ease infinite; }
+.light-2, .light-6 { animation-delay: 0.2s; }
+.light-3, .light-5 { animation-delay: 0.4s; }
+.light-4 { animation-delay: 0.6s; }
+
+.jackpot-text {
+  animation: jackpotBlink 0.5s ease infinite;
+}
+@keyframes jackpotBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.slot-frame {
+  position: absolute;
+  top: 90px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 10px;
+  padding: 14px 18px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 2px solid rgba(255, 215, 0, 0.4);
+  border-radius: 14px;
+  z-index: 2;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.reel-window {
+  width: 110px; height: 135px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  position: relative;
+}
+
+.reel-window::before,
+.reel-window::after {
+  content: '';
+  position: absolute; left: 0; right: 0;
+  height: 35px;
+  z-index: 2;
+  pointer-events: none;
+}
+.reel-window::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+}
+.reel-window::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+.reel {
+  width: 100%;
+  position: relative;
+}
+
+.reel-strip {
+  display: flex; flex-direction: column;
+  transition: transform 0.1s linear;
+}
+
+.reel-symbol {
+  width: 110px; height: 135px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 62px;
+  flex-shrink: 0;
+}
+
+.jackpot-line {
+  position: absolute;
+  top: calc(90px + 14px + 67px);
+  left: calc(50% - 185px);
+  width: 370px;
+  height: 3px;
+  background: var(--neon);
+  box-shadow:
+    0 0 8px var(--neon-glow),
+    0 0 20px var(--neon-glow),
+    0 0 40px rgba(57, 255, 20, 0.2);
+  z-index: 3;
+  border-radius: 2px;
+}
+
+.jackpot-line::before,
+.jackpot-line::after {
+  content: '';
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  width: 10px; height: 10px;
+  background: var(--neon);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--neon-glow), 0 0 20px var(--neon-glow);
+}
+.jackpot-line::before { left: -8px; }
+.jackpot-line::after { right: -8px; }
+
+/* Win message */
+.win-message {
+  font-size: 28px; font-weight: 900;
+  color: var(--gold);
+  text-shadow:
+    0 0 15px var(--gold-glow),
+    0 0 40px var(--gold-glow),
+    0 0 80px rgba(255, 215, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.5s;
+  min-height: 40px;
+  text-align: center;
+  z-index: 5;
+}
+.win-message.show { opacity: 1; }
+
+/* Spinning animation */
+@keyframes spin {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+
+.reel-strip.spinning {
+  animation: spin 0.12s linear infinite;
+}
+
+/* Win glow effect */
+.slot-frame.winner {
+  border-color: var(--neon);
+  box-shadow:
+    0 0 30px var(--neon-glow),
+    0 0 60px var(--neon-glow),
+    0 0 100px rgba(57, 255, 20, 0.15),
+    inset 0 0 25px rgba(57, 255, 20, 0.12);
+}
+
+/* Confetti */
+.confetti-container {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px; height: 10px;
+  opacity: 0;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-20px) rotate(0deg) scale(0);
+    opacity: 1;
+  }
+  10% { transform: translateY(0) rotate(45deg) scale(1); opacity: 1; }
+  100% {
+    transform: translateY(100vh) rotate(720deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.confetti-piece.active {
+  animation: confettiFall 2.5s ease-out forwards;
+}
+
+/* Coins */
+.coins-container {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.coin {
+  position: absolute;
+  font-size: 28px;
+  opacity: 0;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.7));
+}
+
+@keyframes coinBurst {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0);
+    opacity: 1;
+  }
+  15% {
+    transform: translate(var(--tx), var(--ty-initial)) rotate(180deg) scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), calc(100vh + 50px)) rotate(1080deg) scale(0.6);
+    opacity: 0;
+  }
+}
+
+.coin.active {
+  animation: coinBurst var(--duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: var(--delay);
+}

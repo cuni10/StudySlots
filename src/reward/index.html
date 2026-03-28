@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySlots Reward</title>
+  <link rel="stylesheet" href="reward.css">
+</head>
+<body>
+  <div class="reward-wrapper" id="reward-wrapper">
+    <div class="celebration-text">&#127881; &#127942; Sesión Completada &#127942; &#127881;</div>
+
+    <div class="slot-machine">
+      <!-- Machine body SVG background -->
+      <svg class="machine-body" viewBox="0 0 440 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="neonFilter">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#1e2a4a"/>
+            <stop offset="100%" stop-color="#0d1117"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Outer glow -->
+        <rect x="4" y="24" width="432" height="346" rx="28" fill="none"
+              stroke="#39FF14" stroke-width="1" opacity="0.15" filter="url(#neonFilter)"/>
+
+        <!-- Main body -->
+        <rect x="10" y="30" width="420" height="340" rx="24"
+              fill="url(#bodyGrad)" stroke="#FFD700" stroke-width="2.5"/>
+
+        <!-- Top header -->
+        <rect x="10" y="30" width="420" height="65" rx="24" fill="#16213e"/>
+        <rect x="10" y="65" width="420" height="30" fill="#16213e"/>
+
+        <!-- Top lights -->
+        <circle cx="50" cy="55" r="9" fill="#ff3333" class="light light-1" filter="url(#neonFilter)"/>
+        <circle cx="95" cy="55" r="9" fill="#FFD700" class="light light-2" filter="url(#neonFilter)"/>
+        <circle cx="140" cy="55" r="9" fill="#39FF14" class="light light-3" filter="url(#neonFilter)"/>
+        <circle cx="185" cy="55" r="9" fill="#00D4FF" class="light light-4" filter="url(#neonFilter)"/>
+        <circle cx="255" cy="55" r="9" fill="#00D4FF" class="light light-5" filter="url(#neonFilter)"/>
+        <circle cx="300" cy="55" r="9" fill="#39FF14" class="light light-6" filter="url(#neonFilter)"/>
+        <circle cx="345" cy="55" r="9" fill="#FFD700" class="light light-7" filter="url(#neonFilter)"/>
+        <circle cx="390" cy="55" r="9" fill="#ff3333" class="light light-8" filter="url(#neonFilter)"/>
+
+        <!-- Title -->
+        <text x="220" y="58" text-anchor="middle" fill="#FFD700" font-size="20"
+              font-weight="bold" font-family="sans-serif" filter="url(#neonFilter)">
+          S T U D Y S L O T S
+        </text>
+
+        <!-- Side neon bars -->
+        <rect x="16" y="105" width="4" height="220" rx="2" fill="#39FF14" opacity="0.25" filter="url(#neonFilter)"/>
+        <rect x="420" y="105" width="4" height="220" rx="2" fill="#39FF14" opacity="0.25" filter="url(#neonFilter)"/>
+
+        <!-- Side decorative lines -->
+        <line x1="22" y1="115" x2="22" y2="315" stroke="#FFD700" stroke-width="0.5" opacity="0.15"/>
+        <line x1="418" y1="115" x2="418" y2="315" stroke="#FFD700" stroke-width="0.5" opacity="0.15"/>
+
+        <!-- Bottom section -->
+        <rect x="10" y="330" width="420" height="40" rx="0" fill="#16213e"/>
+        <rect x="10" y="330" width="420" height="6" fill="rgba(57,255,20,0.08)"/>
+
+        <!-- Payout line markers -->
+        <polygon points="28,192 42,185 42,199" fill="#39FF14" opacity="0.5" filter="url(#neonFilter)"/>
+        <polygon points="412,192 398,185 398,199" fill="#39FF14" opacity="0.5" filter="url(#neonFilter)"/>
+
+        <!-- Bottom coin tray -->
+        <rect x="150" y="338" width="140" height="26" rx="10" fill="#0a0a15"
+              stroke="#FFD700" stroke-width="1" opacity="0.4"/>
+        <text x="220" y="355" text-anchor="middle" fill="#FFD700"
+              font-size="10" font-family="sans-serif" opacity="0.35">COIN TRAY</text>
+
+        <!-- Jackpot text -->
+        <text x="220" y="325" text-anchor="middle" fill="#39FF14" font-size="16"
+              font-weight="bold" font-family="sans-serif" class="jackpot-text"
+              filter="url(#neonFilter)">★ JACKPOT ★</text>
+      </svg>
+
+      <div class="slot-frame">
+        <div class="reel-window">
+          <div class="reel" id="reel-1">
+            <div class="reel-strip" id="strip-1"></div>
+          </div>
+        </div>
+        <div class="reel-window">
+          <div class="reel" id="reel-2">
+            <div class="reel-strip" id="strip-2"></div>
+          </div>
+        </div>
+        <div class="reel-window">
+          <div class="reel" id="reel-3">
+            <div class="reel-strip" id="strip-3"></div>
+          </div>
+        </div>
+      </div>
+      <div class="jackpot-line"></div>
+    </div>
+
+    <div class="win-message" id="win-message"></div>
+  </div>
+
+  <div class="confetti-container" id="confetti"></div>
+  <div class="coins-container" id="coins"></div>
+
+  <script src="reward.js"></script>
+</body>
+</html>
