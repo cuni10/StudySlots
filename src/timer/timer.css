@@ -35,6 +35,12 @@ body {
   border-radius: 160px;
   transition: border-color 0.3s;
   background-color: rgb(0, 0, 0, 0.5);
+  cursor: grab;
+  user-select: none;
+}
+
+.timer-wrapper.dragging {
+  cursor: grabbing;
 }
 
 .timer-wrapper:hover {
@@ -134,7 +140,7 @@ body {
 .controls {
   display: flex;
   gap: 10px;
-  -webkit-app-region: no-drag;
+  cursor: default;
 }
 
 .ctrl-btn {
@@ -213,14 +219,13 @@ body {
 
 @keyframes fadeGlow {
   0% {
-    filter: drop-shadow(0 0 14px var(--neon-glow));
+    filter: drop-shadow(0 0 8px var(--neon-glow));
   }
   50% {
-    filter: drop-shadow(0 0 35px var(--neon-glow))
-      drop-shadow(0 0 60px var(--neon-glow));
+    filter: drop-shadow(0 0 10px var(--neon-glow));
   }
   100% {
-    filter: drop-shadow(0 0 14px var(--neon-glow));
+    filter: drop-shadow(0 0 8px var(--neon-glow));
   }
 }
 .timer-container.complete .progress-ring {
@@ -229,6 +234,5 @@ body {
 
 /* Finalized state */
 .finalized-ring {
-  filter: drop-shadow(0 0 18px var(--neon-glow))
-    drop-shadow(0 0 35px rgba(57, 255, 20, 0.3));
+  filter: drop-shadow(0 0 10px var(--neon-glow));
 }
