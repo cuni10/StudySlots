@@ -4,6 +4,7 @@ contextBridge.exposeInMainWorld('api', {
   // Window controls
   minimize: () => ipcRenderer.send('window-minimize'),
   close: () => ipcRenderer.send('window-close'),
+  dragWindow: (dx, dy) => ipcRenderer.send('drag-window', { dx, dy }),
 
   // Study session
   startStudy: (duration) => ipcRenderer.send('start-study', { duration }),

@@ -1,28 +1,40 @@
 :root {
-  --neon: #39FF14;
+  --neon: #39ff14;
   --neon-glow: rgba(57, 255, 20, 0.5);
   --circumference: 553;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   background: transparent;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family:
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    sans-serif;
   overflow: visible;
-  -webkit-app-region: drag;
-  display: flex; align-items: flex-start; justify-content: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   padding-top: 6px;
   height: 100vh;
 }
 
 .timer-wrapper {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   padding: 8px;
   border: 1px solid transparent;
   border-radius: 160px;
   transition: border-color 0.3s;
+  background-color: rgb(0, 0, 0, 0.5);
 }
 
 .timer-wrapper:hover {
@@ -36,12 +48,14 @@ body {
 
 .timer-container {
   position: relative;
-  width: 220px; height: 220px;
+  width: 220px;
+  height: 220px;
 }
 
 .progress-ring {
-  width: 100%; height: 100%;
-  filter: drop-shadow(0 0 14px var(--neon-glow)) drop-shadow(0 0 4px var(--neon));
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 10px var(--neon-glow));
   transition: filter 0.5s;
 }
 
@@ -61,15 +75,20 @@ body {
 .timer-center {
   position: absolute;
   inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .time-display {
-  font-size: 44px; font-weight: 800;
+  font-size: 44px;
+  font-weight: 800;
   color: #fff;
   letter-spacing: 2px;
-  text-shadow: 0 0 20px var(--neon-glow), 0 0 50px rgba(57, 255, 20, 0.15);
+  text-shadow:
+    0 0 20px var(--neon-glow),
+    0 0 50px rgba(57, 255, 20, 0.15);
   font-variant-numeric: tabular-nums;
   line-height: 1;
   transition: all 0.5s;
@@ -77,7 +96,7 @@ body {
 
 .time-display.final-text {
   font-size: 38px;
-  background: linear-gradient(135deg, #39FF14, #00ff88, #FFD700);
+  background: linear-gradient(135deg, #39ff14, #00ff88, #ffd700);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: none;
@@ -85,13 +104,22 @@ body {
 }
 
 @keyframes finalPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.08); opacity: 0.85; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.85;
+  }
 }
 
 .time-label {
-  font-size: 10px; color: rgba(255,255,255,0.35);
-  text-transform: uppercase; letter-spacing: 3px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 3px;
   margin-top: 4px;
   transition: all 0.5s;
 }
@@ -104,12 +132,14 @@ body {
 
 /* Controls */
 .controls {
-  display: flex; gap: 10px;
+  display: flex;
+  gap: 10px;
   -webkit-app-region: no-drag;
 }
 
 .ctrl-btn {
-  width: 38px; height: 38px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   border: 1px solid rgba(57, 255, 20, 0.2);
   background: rgba(10, 10, 15, 0.6);
@@ -117,7 +147,9 @@ body {
   -webkit-backdrop-filter: blur(12px);
   color: var(--neon);
   cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s;
 }
 
@@ -127,7 +159,10 @@ body {
   box-shadow: 0 0 16px var(--neon-glow);
 }
 
-.ctrl-cancel { color: #ff5555; border-color: rgba(255, 85, 85, 0.2); }
+.ctrl-cancel {
+  color: #ff5555;
+  border-color: rgba(255, 85, 85, 0.2);
+}
 .ctrl-cancel:hover {
   background: rgba(255, 85, 85, 0.1);
   border-color: #ff5555;
@@ -146,7 +181,7 @@ body {
 
 .status-msg {
   font-size: 10px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(255, 255, 255, 0.25);
   text-transform: uppercase;
   letter-spacing: 2px;
   height: 14px;
@@ -154,23 +189,39 @@ body {
 }
 
 .timer-wrapper.finalized .status-msg {
-  color: rgba(255,255,255,0.2);
+  color: rgba(255, 255, 255, 0.2);
 }
 
 /* Completion pulse */
 @keyframes completePulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.06); opacity: 0.8; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 .timer-container.complete {
   animation: completePulse 0.6s ease 3;
 }
 
 @keyframes fadeGlow {
-  0% { filter: drop-shadow(0 0 14px var(--neon-glow)); }
-  50% { filter: drop-shadow(0 0 35px var(--neon-glow)) drop-shadow(0 0 60px var(--neon-glow)); }
-  100% { filter: drop-shadow(0 0 14px var(--neon-glow)); }
+  0% {
+    filter: drop-shadow(0 0 14px var(--neon-glow));
+  }
+  50% {
+    filter: drop-shadow(0 0 35px var(--neon-glow))
+      drop-shadow(0 0 60px var(--neon-glow));
+  }
+  100% {
+    filter: drop-shadow(0 0 14px var(--neon-glow));
+  }
 }
 .timer-container.complete .progress-ring {
   animation: fadeGlow 0.5s ease 4;
@@ -178,5 +229,6 @@ body {
 
 /* Finalized state */
 .finalized-ring {
-  filter: drop-shadow(0 0 18px var(--neon-glow)) drop-shadow(0 0 35px rgba(57, 255, 20, 0.3));
+  filter: drop-shadow(0 0 18px var(--neon-glow))
+    drop-shadow(0 0 35px rgba(57, 255, 20, 0.3));
 }

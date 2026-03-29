@@ -70,13 +70,31 @@
   <script src="timer.js"></script>
   <script>
     const wrapper = document.querySelector('.timer-wrapper');
-    let dragTimeout;
-    wrapper.addEventListener('mousedown', () => {
+    let dragging = false;
+    let lastX = 0, lastY = 0;
+
+    wrapper.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.controls')) return;
+      dragging = true;
+      lastX = e.screenX;
+      lastY = e.screenY;
       wrapper.classList.add('dragging');
-      clearTimeout(dragTimeout);
     });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const dx = e.screenX - lastX;
+      const dy = e.screenY - lastY;
+      lastX = e.screenX;
+      lastY = e.screenY;
+      window.api.dragWindow(dx, dy);
+    });
+
     document.addEventListener('mouseup', () => {
-      dragTimeout = setTimeout(() => wrapper.classList.remove('dragging'), 300);
+      if (dragging) {
+        dragging = false;
+        wrapper.classList.remove('dragging');
+      }
     });
   </script>
 </body>

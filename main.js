@@ -154,12 +154,17 @@ ipcMain.on('window-close', (e) => {
   BrowserWindow.fromWebContents(e.sender)?.close();
 });
 
-ipcMain.on('window-drag', (e, { mouseX, mouseY }) => {
+ipcMain.on('drag-window', (e, { dx, dy }) => {
   const win = BrowserWindow.fromWebContents(e.sender);
-  if (win) {
-    const { x, y } = win.getBounds();
-    win.setPosition(x + mouseX, y + mouseY);
-  }
+  if (!win) return;
+
+  const { x, y, width: winW, height: winH } = win.getBounds();
+  const { workArea } = screen.getPrimaryDisplay();
+
+  const newX = Math.max(workArea.x, Math.min(workArea.x + workArea.width - winW, x + dx));
+  const newY = Math.max(workArea.y, Math.min(workArea.y + workArea.height - winH, y + dy));
+
+  win.setPosition(newX, newY);
 });
 
 ipcMain.on('start-study', (e, { duration }) => {
